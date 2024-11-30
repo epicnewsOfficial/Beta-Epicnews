@@ -42,11 +42,13 @@ export async function getServerSideProps({ params }) {
           author: {
             name: attributes.author?.data?.attributes?.name || "Unknown",
             job: attributes.author?.data?.attributes?.job || "Contributor",
-            avatar: attributes.author?.data?.attributes?.avatar?.data?.attributes?.url
+            avatar: attributes.author?.data?.attributes?.avatar?.data
+              ?.attributes?.url
               ? `${BASE_URL}${attributes.author.data.attributes.avatar.data.attributes.url}`
               : "/placeholder-avatar.jpg",
           },
-          category: attributes.category?.data?.attributes?.name || "Uncategorized",
+          category:
+            attributes.category?.data?.attributes?.name || "Uncategorized",
         },
       },
     };
@@ -60,12 +62,21 @@ export default function Detail({ post }) {
   return (
     <Layout>
       <Head>
-        <title>{post.title} &mdash; Epictetus</title>
+        <title>{post.title} &mdash; EpicNews</title>
       </Head>
       <Container>
         <div className="md:w-6/12 w-full mx-auto flex items-center flex-col">
-          <PostMetaTitle category={post.category} date={post.date} title={post.title} center />
-          <PostAuthor authorName={post.author.name} authorJob={post.author.job} authorAvatar={post.author.avatar} />
+          <PostMetaTitle
+            category={post.category}
+            date={post.date}
+            title={post.title}
+            center
+          />
+          <PostAuthor
+            authorName={post.author.name}
+            authorJob={post.author.job}
+            authorAvatar={post.author.avatar}
+          />
         </div>
         <div className="md:w-10/12 w-full mx-auto my-10">
           <img src={post.thumbnail} className="w-full rounded-lg" />
