@@ -1,8 +1,14 @@
 "use client";
 import { useState } from "react";
+import Container from "@components/Container";
+import { FaEye } from "react-icons/fa6";
+import { FaEyeSlash } from "react-icons/fa6";
+import "../styles/Register.css";
+import Head from "next/head";
 
 export default function Registration() {
   const [message, setMessage] = useState(null);
+  const [showPassword, setShowPassword] = useState(false);
 
   const register = async (event) => {
     event.preventDefault();
@@ -21,7 +27,10 @@ export default function Registration() {
     };
 
     try {
-      const req = await fetch("http://localhost:1337/api/auth/local/register", reqOptions);
+      const req = await fetch(
+        "http://localhost:1337/api/auth/local/register",
+        reqOptions
+      );
       const res = await req.json();
 
       if (res.error) {
@@ -30,7 +39,7 @@ export default function Registration() {
       }
 
       if (res.jwt && res.user) {
-        setMessage("Berhasil login");
+        setMessage("Berhasil registrasi!");
         form.reset(); // Reset form jika berhasil
       }
     } catch (error) {
@@ -39,59 +48,112 @@ export default function Registration() {
   };
 
   return (
-    <form onSubmit={register} className="max-w-md mx-auto bg-white shadow-lg rounded-lg p-6 space-y-4">
-      <h2 className="text-2xl font-bold text-gray-800 text-center mb-6">Register</h2>
+    <>
+      <Head>
+        <title>Register &mdash; EpicNews</title>
+      </Head>
+      <Container>
+        <div className="register-main">
+          <div className="register-left hidden-custom">
+            <img src={"/image_register.png"} alt="" />
+          </div>
+          <div className="register-right">
+            <div className="register-right-container">
+              <div className="register-logo">
+                <img src={"/logo.png"} alt="logo epicnews" />
+              </div>
+              <div className="register-center">
+                <h2>Register for news!</h2>
+                <p>Please enter your details</p>
+                <form onSubmit={register}>
+                  <input
+                    type="text"
+                    id="username"
+                    name="username"
+                    className="w-full border border-gray-300 rounded-md p-3 focus:outline-none focus:ring focus:ring-blue-200"
+                    placeholder="Enter your username"
+                    required
+                  />
 
-      <div className="space-y-2">
-        <label htmlFor="username" className="block text-gray-600 font-medium">
-          Username
-        </label>
-        <input
-          type="text"
-          id="username"
-          name="username"
-          className="w-full border border-gray-300 rounded-md p-3 focus:outline-none focus:ring focus:ring-blue-200"
-          placeholder="Enter your username"
-          required
-        />
-      </div>
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    className="w-full border border-gray-300 rounded-md p-3 focus:outline-none focus:ring focus:ring-blue-200"
+                    placeholder="Enter your email"
+                    required
+                  />
 
-      <div className="space-y-2">
-        <label htmlFor="email" className="block text-gray-600 font-medium">
-          Email
-        </label>
-        <input
-          type="email"
-          id="email"
-          name="email"
-          className="w-full border border-gray-300 rounded-md p-3 focus:outline-none focus:ring focus:ring-blue-200"
-          placeholder="Enter your email"
-          required
-        />
-      </div>
+                  <div className="pass-input-div">
+                    <input
+                      type={showPassword ? "text" : "password"}
+                      id="password"
+                      name="password"
+                      className="w-full border border-gray-300 rounded-md p-3 focus:outline-none focus:ring focus:ring-blue-200"
+                      placeholder="Enter your password"
+                      required
+                    />
+                    {showPassword ? (
+                      <FaEyeSlash
+                        onClick={() => {
+                          setShowPassword(!showPassword);
+                        }}
+                      />
+                    ) : (
+                      <FaEye
+                        onClick={() => {
+                          setShowPassword(!showPassword);
+                        }}
+                      />
+                    )}
+                  </div>
 
-      <div className="space-y-2">
-        <label htmlFor="password" className="block text-gray-600 font-medium">
-          Password
-        </label>
-        <input
-          type="password"
-          id="password"
-          name="password"
-          className="w-full border border-gray-300 rounded-md p-3 focus:outline-none focus:ring focus:ring-blue-200"
-          placeholder="Enter your password"
-          required
-        />
-      </div>
+                  <div className="register-center-buttons">
+                    <button type="submit">Register</button>
+                    <button type="button">
+                      <img src={"/icons8-google.svg"} alt="" />
+                      Register with Google
+                    </button>
+                  </div>
 
-      <button
-        type="submit"
-        className="w-full bg-blue-500 text-white font-medium p-3 rounded-md hover:bg-blue-600 transition duration-200"
-      >
-        Register
-      </button>
+                  {message && (
+                    <div className="mt-4 text-green-500 text-center font-medium">
+                      {message}
+                    </div>
+                  )}
+                </form>
+              </div>
 
-      {message && <div className="mt-4 text-red-500 text-center font-medium">{message}</div>}
-    </form>
+              <p className="register-bottom-p">
+                Already have an account? <a href="/login">Log In</a>
+              </p>
+            </div>
+          </div>
+
+          <div className="relative">
+            <a href="/" className="absolute top-10 right-14">
+              <button>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="25"
+                  height="25"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="feather feather-x"
+                  className="contrast-50"
+                >
+                  <line x1="18" y1="6" x2="6" y2="18"></line>
+                  <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+              </button>
+            </a>
+          </div>
+        </div>
+      </Container>
+    </>
   );
 }

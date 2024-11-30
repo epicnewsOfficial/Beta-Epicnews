@@ -80,6 +80,7 @@ form input[type="date"] {
   border-bottom: 1px solid black;
   outline: none;
   box-sizing: border-box;
+  font-size: large;
 }
 
 .pass-input-div {
@@ -95,7 +96,8 @@ form input[type="date"] {
   outline: none;
 }
 
-form button[type="button"] {
+form button[type="button"],
+form button[type="submit"] {
   width: 100%;
   padding: 16px;
   border: none;
