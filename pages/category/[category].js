@@ -27,12 +27,17 @@ export async function getServerSideProps(context) {
       return {
         id: post.id,
         slug: attributes.slug,
-        category: attributes.category?.data?.attributes?.name || "Uncategorized",
+        category:
+          attributes.category?.data?.attributes?.name || "Uncategorized",
         title: attributes.title,
         date: date ? new Date(date).toLocaleDateString() : "Unknown date",
         shortDescription: attributes.headline || "No description available.",
-        thumbnailUrl: thumbnail ? `${BASE_URL}${thumbnail}` : "/placeholder-thumbnail.jpg",
-        authorAvatar: authorAvatar ? `${BASE_URL}${authorAvatar}` : "/placeholder-avatar.jpg",
+        thumbnailUrl: thumbnail
+          ? `${BASE_URL}${thumbnail}`
+          : "/placeholder-thumbnail.jpg",
+        authorAvatar: authorAvatar
+          ? `${BASE_URL}${authorAvatar}`
+          : "/placeholder-avatar.jpg",
         authorName: author.name || "Unknown",
         authorJob: author.job || "Contributor",
       };
@@ -67,7 +72,8 @@ export default function Posts({ posts, category }) {
           <div className="text-center py-20">
             <h2 className="text-6xl">No result 😥</h2>
             <p className="text-xl mt-4 text-white/60 md:w-6/12 w-full mx-auto">
-              We couldn’t find any posts with the specified filters. Please try another keyword.
+              We couldn’t find any posts with the specified filters. Please try
+              another keyword.
             </p>
           </div>
         ) : (

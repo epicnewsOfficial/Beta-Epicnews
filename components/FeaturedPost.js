@@ -14,7 +14,7 @@ export default function FeaturedPost({
 }) {
   return (
     <article>
-      <div className="flex -mx-4 lg:items-center items-start flex-wrap">
+      <div className="flex -mx-4 lg:items-center items-start flex-wrap pt-10">
         <div className="px-4 lg:w-8/12 md:w-7/12 w-full">
           {/* Link untuk gambar */}
           <Link href={`/detail/${slug}`}>

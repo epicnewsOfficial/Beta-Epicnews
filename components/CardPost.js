@@ -13,7 +13,7 @@ export default function CardPost({
   date,
 }) {
   return (
-    <article>
+    <article className="pb-10">
       {/* Link untuk gambar */}
       <Link href={`/detail/${slug}`}>
         <img
