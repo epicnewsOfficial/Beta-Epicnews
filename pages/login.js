@@ -8,7 +8,7 @@ export default function Login() {
     const storedToken = localStorage.getItem("authToken");
     if (storedToken) {
       setToken(storedToken);
-      window.location.href = "http://localhost:3000"; // Redirect ke halaman utama jika sudah login
+      window.location.href = "/"; // Redirect ke halaman utama
     }
   }, []);
 

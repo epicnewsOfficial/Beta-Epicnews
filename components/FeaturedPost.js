@@ -1,5 +1,5 @@
-import Link from 'next/link';
-import InfoPost from '@components/InfoPost';
+import Link from "next/link";
+import InfoPost from "@components/InfoPost";
 
 export default function FeaturedPost({
   category,
@@ -10,7 +10,7 @@ export default function FeaturedPost({
   authorName,
   authorJob,
   slug,
-  date
+  date,
 }) {
   return (
     <article>

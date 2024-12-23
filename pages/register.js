@@ -27,10 +27,7 @@ export default function Registration() {
     };
 
     try {
-      const req = await fetch(
-        "http://localhost:1337/api/auth/local/register",
-        reqOptions
-      );
+      const req = await fetch("http://localhost:1337/api/auth/local/register", reqOptions);
       const res = await req.json();
 
       if (res.error) {
@@ -116,11 +113,7 @@ export default function Registration() {
                     </button>
                   </div>
 
-                  {message && (
-                    <div className="mt-4 text-green-500 text-center font-medium">
-                      {message}
-                    </div>
-                  )}
+                  {message && <div className="mt-4 text-green-500 text-center font-medium">{message}</div>}
                 </form>
               </div>
 

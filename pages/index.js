@@ -19,60 +19,39 @@ export async function getServerSideProps({ query }) {
       category ? `&filters[category][name][$eq]=${category}` : ""
     }`;
 
-    const [featuredRes, falseRes] = await Promise.all([
-      fetch(apiUrlFeatured),
-      fetch(apiUrlFalse),
-    ]);
+    const [featuredRes, falseRes] = await Promise.all([fetch(apiUrlFeatured), fetch(apiUrlFalse)]);
 
     if (!featuredRes.ok || !falseRes.ok) {
       throw new Error("Failed to fetch data");
     }
 
-    const [featuredData, falseData] = await Promise.all([
-      featuredRes.json(),
-      falseRes.json(),
-    ]);
+    const [featuredData, falseData] = await Promise.all([featuredRes.json(), falseRes.json()]);
 
-    const featuredPost =
-      featuredData.data && featuredData.data.length > 0
-        ? featuredData.data[0]
-        : null;
+    const featuredPost = featuredData.data && featuredData.data.length > 0 ? featuredData.data[0] : null;
     const falsePosts = falseData.data || [];
 
     if (featuredPost) {
-      const thumbnail =
-        featuredPost.attributes.thumbnail?.data?.attributes?.url;
-      const authorAvatar =
-        featuredPost.attributes.author?.data?.attributes?.avatar?.data
-          ?.attributes?.url;
+      const thumbnail = featuredPost.attributes.thumbnail?.data?.attributes?.url;
+      const authorAvatar = featuredPost.attributes.author?.data?.attributes?.avatar?.data?.attributes?.url;
 
-      featuredPost.attributes.thumbnailUrl = thumbnail
-        ? `${BASE_URL}${thumbnail}`
-        : null;
-      featuredPost.attributes.authorAvatar = authorAvatar
-        ? `${BASE_URL}${authorAvatar}`
-        : null;
+      featuredPost.attributes.thumbnailUrl = thumbnail ? `${BASE_URL}${thumbnail}` : null;
+      featuredPost.attributes.authorAvatar = authorAvatar ? `${BASE_URL}${authorAvatar}` : null;
       featuredPost.attributes.date = featuredPost.attributes.createdAt
-        ? new Date(featuredPost.attributes.createdAt).toLocaleDateString(
-            "en-US",
-            {
-              year: "numeric",
-              month: "long",
-              day: "numeric",
-            }
-          )
+        ? new Date(featuredPost.attributes.createdAt).toLocaleDateString("en-US", {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+          })
         : "Unknown date";
     }
 
     const processedPosts = falsePosts.map((post) => {
       const thumbnail = post.attributes.thumbnail?.data?.attributes?.url;
-      const authorAvatar =
-        post.attributes.author?.data?.attributes?.avatar?.data?.attributes?.url;
+      const authorAvatar = post.attributes.author?.data?.attributes?.avatar?.data?.attributes?.url;
 
       return {
         slug: post.attributes.slug,
-        category:
-          post.attributes.category?.data?.attributes?.name || "Uncategorized",
+        category: post.attributes.category?.data?.attributes?.name || "Uncategorized",
         title: post.attributes.title,
         date: post.attributes.createdAt
           ? new Date(post.attributes.createdAt).toLocaleDateString("en-US", {
@@ -81,17 +60,11 @@ export async function getServerSideProps({ query }) {
               day: "numeric",
             })
           : "Unknown date",
-        shortDescription:
-          post.attributes.headline || "No description available",
-        thumbnailUrl: thumbnail
-          ? `${BASE_URL}${thumbnail}`
-          : "/placeholder-thumbnail.jpg",
-        authorAvatar: authorAvatar
-          ? `${BASE_URL}${authorAvatar}`
-          : "/placeholder-avatar.jpg",
+        shortDescription: post.attributes.headline || "No description available",
+        thumbnailUrl: thumbnail ? `${BASE_URL}${thumbnail}` : "/placeholder-thumbnail.jpg",
+        authorAvatar: authorAvatar ? `${BASE_URL}${authorAvatar}` : "/placeholder-avatar.jpg",
         authorName: post.attributes.author?.data?.attributes?.name || "Unknown",
-        authorJob:
-          post.attributes.author?.data?.attributes?.job || "Contributor",
+        authorJob: post.attributes.author?.data?.attributes?.job || "Contributor",
       };
     });
 
@@ -115,11 +88,6 @@ export async function getServerSideProps({ query }) {
 
 export default function Home({ featured, posts, categories }) {
   const router = useRouter();
-  console.log(categories);
-  const handleLogout = () => {
-    localStorage.removeItem("authToken");
-    router.push("/login");
-  };
 
   return (
     <Layout>
@@ -167,12 +135,6 @@ export default function Home({ featured, posts, categories }) {
           <div>No posts found in this category</div>
         )}
       </Container>
-      <button
-        onClick={handleLogout}
-        className="bg-red-500 text-white px-4 py-2 rounded"
-      >
-        Logout
-      </button>
     </Layout>
   );
 }

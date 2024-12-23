@@ -20,8 +20,11 @@ const LoginForm = () => {
   const [showPassword, setShowPassword] = useState(false);
 
   const saveTokenAndRedirect = (token) => {
-    localStorage.setItem("authToken", token); // Simpan token ke localStorage
-    window.location.href = "/"; // Redirect ke halaman utama menggunakan path relatif
+    if (token) {
+      localStorage.setItem("authToken", token);
+      localStorage.setItem("username", username);
+      window.location.href = "/";
+    }
   };
 
   const handleGithubLogin = () => {
