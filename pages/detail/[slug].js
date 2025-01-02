@@ -81,7 +81,7 @@ export default function Detail({ post }) {
         <div className="md:w-10/12 w-full mx-auto my-10">
           <img src={post.thumbnail} className="w-full rounded-lg" />
         </div>
-        <div className="md:w-8/12 w-full mx-auto leading-relaxed">
+        <div className="md:w-8/12 w-full mx-auto leading-relaxed pb-10">
           <ReactMarkdown className="prose">{post.content}</ReactMarkdown>
         </div>
       </Container>

@@ -117,7 +117,7 @@ export default function Navbar() {
   return (
     <nav className="border-b-2 text-white py-4 pt-7">
       {/* Navbar Top */}
-      <div className="container mx-auto flex items-center justify-between px-4 lg:px-8">
+      <div className="container mx-auto flex items-center  justify-between px-4 lg:px-8">
         {/* Hamburger Menu */}
         <div className="lg:hidden">
           <button
@@ -142,28 +142,39 @@ export default function Navbar() {
         </div>
 
         {/* Left Side: Search and Logo */}
-        <div className="flex items-center space-x-6" id="search">
-          {/* Search - Visible only on large screens */}
-          <form
-            onSubmit={handleSearch}
-            className="flex items-center w-full lg:block hidden"
-          >
-            <input
-              id="seacrh"
-              type="text"
-              placeholder="Search..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="flex-grow bg-gray-800 text-sm py-2 px-4 rounded-l focus:outline-none"
-            />
-            <button
-              type="submit"
-              className="bg-gray-700 py-2 px-3 rounded-r hover:bg-gray-600"
+        <div className="flex justify-between">
+          <div className="flex items-center space-x-6 pr-5" id="search">
+            {/* Search - Visible only on large screens */}
+            <form
+              onSubmit={handleSearch}
+              className="flex items-center w-full lg:block hidden"
             >
-              🔎
-            </button>
-          </form>
+              <input
+                id="seacrh"
+                type="text"
+                placeholder="Search..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="flex-grow bg-gray-800 text-sm py-2 px-4 rounded-l focus:outline-none"
+              />
+              <button
+                type="submit"
+                className="bg-gray-700 py-2 px-3 rounded-r hover:bg-gray-600"
+              >
+                🔎
+              </button>
+            </form>
+          </div>
+
+          {/* Tour Button */}
+          <button
+            onClick={handleStartTour}
+            className="bg-blue-500 text-sm px-4 py-2 rounded hover:bg-blue-600  hidden lg:block"
+          >
+            Start Tour
+          </button>
         </div>
+
         {/* Logo */}
         <Link href="/" legacyBehavior>
           <a id="logo">
@@ -172,7 +183,7 @@ export default function Navbar() {
         </Link>
 
         {/* Right Side: Username or Login/Register or Logout */}
-        <div className="hidden lg:flex items-center space-x-6">
+        <div className="hidden lg:flex items-center space-x-6 pl-16">
           {isLoggedIn ? (
             <div className="flex items-center space-x-4">
               <span id="username" className="text-sm">
@@ -197,13 +208,6 @@ export default function Navbar() {
             </>
           )}
         </div>
-        {/* Tour Button */}
-        <button
-          onClick={handleStartTour}
-          className="bg-blue-500 text-sm px-4 py-2 rounded hover:bg-blue-600  hidden lg:block"
-        >
-          Start Tour
-        </button>
       </div>
 
       {/* Kategori di bawah logo, visible on large screens */}
