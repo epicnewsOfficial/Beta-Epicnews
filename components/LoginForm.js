@@ -122,11 +122,6 @@ const LoginForm = () => {
 
                   <div className="login-center-buttons">
                     <button type="submit">Log In</button>
-
-                    <button type="button" onClick={handleGithubLogin}>
-                      <img src={"/icons8-github.svg"} alt="" />
-                      Log In with GitHub
-                    </button>
                   </div>
                 </form>
               </div>

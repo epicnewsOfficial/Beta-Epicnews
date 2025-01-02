@@ -217,7 +217,7 @@ export default function Navbar() {
               <li key={item.name}>
                 <button
                   onClick={() => router.push(item.href)}
-                  className="px-4 py-2 font-medium text-gray-900 bg-white hover:bg-gray-900 hover:text-white rounded-[20px] border-4 transition duration-500 ease-in-out"
+                  className="px-2 py-1 text-xs text-gray-900 bg-white hover:bg-gray-900 hover:text-white rounded-[10px] border-4 transition duration-500 ease-in-out"
                 >
                   {item.name}
                 </button>
